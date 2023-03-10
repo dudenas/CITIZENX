@@ -24,7 +24,7 @@
     }
 
     let _canvasSize = [1650, screen.height * 2]
-    let _minMaxSize = [480, 1640]
+    let _minMaxSize = [480, 1000]
 
     let _w, _h
     let _sclGraphics = 1
@@ -76,14 +76,12 @@
             _sclGraphics = constrain(_w / _minMaxSize[0], 0.5, 1)
             _offsetX = Math.abs(_cellsX * params.cellWidth - _minMaxSize[0]) / 2
             if (_sclGraphics === 0.5) {
-                _offsetX = Math.abs(_cellsX * params.cellWidth - _minMaxSize[0]) / 2 + Math.abs((_w - _minMaxSize[0] / 2) / 2)
+                _offsetX = Math.abs(_cellsX * params.cellWidth - _minMaxSize[0]) / 2 + Math.abs((_w - _minMaxSize[0] / 2))
             }
             _offsetY = ((_h - _cellsY * params.cellHeight) / 2) + ((_cellsY * params.cellHeight) / 2) * (1 - _sclGraphics)
         } else if (_w > _minMaxSize[1]) {
             _sclGraphics = _w / _minMaxSize[1]
-            // _offsetX = Math.abs(_cellsX * params.cellWidth - _minMaxSize[1]) / 2
-            _offsetX = Math.abs(_cellsX * params.cellWidth - _w) / 2 + ((_cellsX * params.cellWidth) / 2) * (_sclGraphics - 1)
-            // _offsetY = ((_h - _cellsY * params.cellHeight) / 2) * (_sclGraphics)
+            _offsetX = Math.abs(_cellsX * params.cellWidth - _minMaxSize[1]) / 2
             _offsetY = ((_h - _cellsY * params.cellHeight) / 2) + ((_cellsY * params.cellHeight) / 2) * (1 - _sclGraphics)
         } else {
             _sclGraphics = 1
