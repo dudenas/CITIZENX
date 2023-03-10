@@ -24,7 +24,7 @@
     }
 
     let _canvasSize = [1650, screen.height * 2]
-    let _minMaxSize = [480, 1000]
+    let _minMaxSize = [480, 1640]
 
     let _w, _h
     let _sclGraphics = 1
