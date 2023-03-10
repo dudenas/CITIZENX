@@ -11,15 +11,20 @@
 
         // pick cell type values
         randomPercent: 25,
-        cellAddType: "Random",
+        cellAddType: "Noise",
+
+        // noise
+        minNoise: 0.0,
+        maxNoise: 0.35,
+        scaleNoise: .1,
 
         // color
         colorBG: "rgb(161,161,161)",
         colorGRFC: "rgb(173,255,9)"
     }
 
-    let _canvasSize = [1520, 640]
-    let _minMaxSize = [500, 1500]
+    let _canvasSize = [1650, screen.height * 2]
+    let _minMaxSize = [480, 1640]
 
     let _w, _h
     let _sclGraphics = 1
@@ -38,6 +43,11 @@
     // get canvas to a variable
     const canvas = document.getElementById("header-graphics-canvas");
     const ctx = canvas.getContext("2d");
+
+    // simplex node
+    const seed = Date.now();
+    const openSimplex = openSimplexNoise(seed);
+
 
     // add listener for resize
     window.addEventListener('resize', resizeMyCanvas, false);
@@ -60,16 +70,21 @@
         _w = myDiv.offsetWidth
         _h = myDiv.offsetHeight
 
-        _offsetX = Math.abs(_canvasSize[0] - _w) / 2
-        _offsetY = Math.abs(_canvasSize[1] - _h)
+        _offsetX = Math.abs(_cellsX * params.cellWidth - _w) / 2
+        _offsetY = ((_h - _cellsY * params.cellHeight) / 2)
         if (_w < _minMaxSize[0]) {
-            _sclGraphics = _w / _minMaxSize[0]
-            _offsetX = Math.abs(_canvasSize[0] - _minMaxSize[0]) / 2
-            _offsetY = Math.abs(_canvasSize[1] - _h) - (Math.abs(_canvasSize[1]) * (_sclGraphics - 1))
+            _sclGraphics = constrain(_w / _minMaxSize[0], 0.5, 1)
+            _offsetX = Math.abs(_cellsX * params.cellWidth - _minMaxSize[0]) / 2
+            if (_sclGraphics === 0.5) {
+                _offsetX = Math.abs(_cellsX * params.cellWidth - _minMaxSize[0]) / 2 + Math.abs((_w - _minMaxSize[0] / 2) / 2)
+            }
+            _offsetY = ((_h - _cellsY * params.cellHeight) / 2) + ((_cellsY * params.cellHeight) / 2) * (1 - _sclGraphics)
         } else if (_w > _minMaxSize[1]) {
             _sclGraphics = _w / _minMaxSize[1]
-            _offsetX = Math.abs(_canvasSize[0] - _minMaxSize[1]) / 2
-            _offsetY = Math.abs(_canvasSize[1] - _h) - (Math.abs(_canvasSize[1]) * (_sclGraphics - 1)) + ((_canvasSize[1]) * (_sclGraphics - 1))
+            // _offsetX = Math.abs(_cellsX * params.cellWidth - _minMaxSize[1]) / 2
+            _offsetX = Math.abs(_cellsX * params.cellWidth - _w) / 2 + ((_cellsX * params.cellWidth) / 2) * (_sclGraphics - 1)
+            // _offsetY = ((_h - _cellsY * params.cellHeight) / 2) * (_sclGraphics)
+            _offsetY = ((_h - _cellsY * params.cellHeight) / 2) + ((_cellsY * params.cellHeight) / 2) * (1 - _sclGraphics)
         } else {
             _sclGraphics = 1
         }
@@ -113,7 +128,6 @@
                 const idx = i + j * _cellsX
                 // console.log(i, j, idx)
                 const c = new Cell(x, y, params.cellWidth / params.scaleDownGraphics, params.cellHeight / params.scaleDownGraphics, i, j, idx)
-
                 if (params.cellAddType == "Random") {
                     // Cell version 1 : Random
                     if (Math.random() > params.randomPercent / 100.0) {
@@ -121,6 +135,12 @@
                     } else {
                         _totalCells++
                     }
+                    _cells.push(c)
+                } else if (params.cellAddType === "Noise") {
+                    // Cell version 2 : Noise
+                    const noiseVal = openSimplex.noise2D(x * params.scaleNoise, y * params.scaleNoise)
+                    if (!(noiseVal > params.minNoise && noiseVal < params.maxNoise)) c.active = false
+                    else _totalCells++
                     _cells.push(c)
                 } else {
                     console.log("cellAddType is not defined")
