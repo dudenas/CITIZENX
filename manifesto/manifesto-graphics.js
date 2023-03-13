@@ -7,19 +7,10 @@
         rndSeed: Math.floor(Math.random() * 1000),
         scaleDownGraphics: 1,
 
-        totalFrames: 60,
-
-        // pick cell type values
-        randomPercent: 25,
-        cellAddType: "Noise",
-
-        // noise
-        minNoise: 0.0,
-        maxNoise: 0.35,
-        scaleNoise: .1,
+        totalFrames: 45,
 
         // color
-        colorBG: "rgb(161,161,161)",
+        colorBG: "rgb(26,27,31)",
         colorGRFC: "rgb(173,255,9)"
     }
 
@@ -41,7 +32,7 @@
     let framesPerSecond = 30;
 
     // get canvas to a variable
-    const canvas = document.getElementById("header-graphics-canvas");
+    const canvas = document.getElementById("manifesto-graphics-canvas");
     const ctx = canvas.getContext("2d");
 
     // simplex node
@@ -66,7 +57,7 @@
     //———————————————————————————————————————————————————————————————————————————————————————————————— getWidthAndHeight
     function getWidthAndHeight() {
         // resize and center image
-        var myDiv = document.getElementById('header-graphics-container');
+        var myDiv = document.getElementById('manifesto-graphics-container');
         _w = myDiv.offsetWidth
         _h = myDiv.offsetHeight
 
@@ -126,23 +117,8 @@
                 const idx = i + j * _cellsX
                 // console.log(i, j, idx)
                 const c = new Cell(x, y, params.cellWidth / params.scaleDownGraphics, params.cellHeight / params.scaleDownGraphics, i, j, idx)
-                if (params.cellAddType == "Random") {
-                    // Cell version 1 : Random
-                    if (Math.random() > params.randomPercent / 100.0) {
-                        c.active = false
-                    } else {
-                        _totalCells++
-                    }
-                    _cells.push(c)
-                } else if (params.cellAddType === "Noise") {
-                    // Cell version 2 : Noise
-                    const noiseVal = openSimplex.noise2D(x * params.scaleNoise, y * params.scaleNoise)
-                    if (!(noiseVal > params.minNoise && noiseVal < params.maxNoise)) c.active = false
-                    else _totalCells++
-                    _cells.push(c)
-                } else {
-                    console.log("cellAddType is not defined")
-                }
+                _totalCells++
+                _cells.push(c)
             }
         }
 
@@ -180,8 +156,10 @@
                 const c = _cells[i]
                 if (c.active && !c.appear) {
                     if (c.distToPoint < d && Math.random() > 0.5) {
-                        c.appear = true
-                        _currentCells++
+                        if (Math.random() > 0.5) {
+                            c.appear = true
+                            _currentCells++
+                        }
                     }
                 }
             }
