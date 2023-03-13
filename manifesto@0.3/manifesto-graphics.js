@@ -10,7 +10,7 @@
         totalFrames: 30,
 
         // color
-        colorBG: "rgb(26,27,31)",
+        colorBG: "rgb(34,34,34)",
         colorGRFC: "rgb(173,255,9)"
     }
 

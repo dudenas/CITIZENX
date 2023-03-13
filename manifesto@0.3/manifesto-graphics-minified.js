@@ -7,7 +7,7 @@
             rndSeed: Math.floor(1e3 * Math.random()),
             scaleDownGraphics: 1,
             totalFrames: 30,
-            colorBG: "rgb(26,27,31)",
+            colorBG: "rgb(34,34,34)",
             colorGRFC: "rgb(173,255,9)"
         },
         e = [1650, 2 * screen.height],
