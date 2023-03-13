@@ -35,11 +35,6 @@
     const canvas = document.getElementById("manifesto-graphics-canvas");
     const ctx = canvas.getContext("2d");
 
-    // simplex node
-    const seed = Date.now();
-    const openSimplex = openSimplexNoise(seed);
-
-
     // add listener for resize
     window.addEventListener('resize', resizeMyCanvas, false);
 

@@ -15,16 +15,15 @@
         s, h, o = 1,
         n, l, a, r, c, $, u, g = !1,
         d, f = document.getElementById("manifesto-graphics-canvas"),
-        _ = f.getContext("2d"),
-        b = Date.now();
+        _ = f.getContext("2d");
 
-    function p() {
+    function b() {
         var b;
-        s = (b = document.getElementById("manifesto-graphics-container")).offsetWidth, h = b.offsetHeight, n = Math.abs(r * t.cellWidth - s) / 2, l = (h - c * t.cellHeight) / 2, s < i[0] ? (o = x(s / i[0], .5, 1), n = Math.abs(r * t.cellWidth - i[0]) / 2, .5 === o && (n = Math.abs(r * t.cellWidth - i[0]) / 2 + Math.abs(s - i[0] / 2)), l = (h - c * t.cellHeight) / 2 + c * t.cellHeight / 2 * (1 - o)) : s > i[1] ? (o = s / i[1], n = Math.abs(r * t.cellWidth - i[1]) / 2, l = (h - c * t.cellHeight) / 2 + c * t.cellHeight / 2 * (1 - o)) : o = 1, f.setAttribute("width", s * window.devicePixelRatio), f.setAttribute("height", h * window.devicePixelRatio), f.setAttribute("style", "width:" + s + "px; height:" + h + "px;"), f.getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio),
+        s = (b = document.getElementById("manifesto-graphics-container")).offsetWidth, h = b.offsetHeight, n = Math.abs(r * t.cellWidth - s) / 2, l = (h - c * t.cellHeight) / 2, s < i[0] ? (o = w(s / i[0], .5, 1), n = Math.abs(r * t.cellWidth - i[0]) / 2, .5 === o && (n = Math.abs(r * t.cellWidth - i[0]) / 2 + Math.abs(s - i[0] / 2)), l = (h - c * t.cellHeight) / 2 + c * t.cellHeight / 2 * (1 - o)) : s > i[1] ? (o = s / i[1], n = Math.abs(r * t.cellWidth - i[1]) / 2, l = (h - c * t.cellHeight) / 2 + c * t.cellHeight / 2 * (1 - o)) : o = 1, f.setAttribute("width", s * window.devicePixelRatio), f.setAttribute("height", h * window.devicePixelRatio), f.setAttribute("style", "width:" + s + "px; height:" + h + "px;"), f.getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio),
             function i() {
                 if (_.clearRect(0, 0, s, h), _.fillStyle = t.colorBG, _.fillRect(0, 0, s, h), $ > u) {
                     let o = d++ % t.totalFrames / t.totalFrames,
-                        n = w(o, 0, 1, 0, e[0]);
+                        n = p(o, 0, 1, 0, e[0]);
                     for (let l = 0; l < a.length; l++) {
                         let r = a[l];
                         r.active && !r.appear && r.distToPoint < n && Math.random() > .5 && Math.random() > .5 && (r.appear = !0, u++)
@@ -35,26 +34,26 @@
                     f.active && f.appear && f.findNeighbours()
                 }
                 for (let b = 0; b < a.length; b++) {
-                    let p = a[b];
-                    p.appear && p.show()
+                    let w = a[b];
+                    w.appear && w.show()
                 }
                 setTimeout(function () {
                     g || requestAnimationFrame(i)
                 }, 33.333333333333336)
             }()
     }
-    openSimplexNoise(b), window.addEventListener("resize", p, !1);
-    let w = function (t, e, i, s, h, o) {
+    window.addEventListener("resize", b, !1);
+    let p = function (t, e, i, s, h, o) {
             let n = (t - e) / (i - e) * (h - s) + s;
             return o ? s < h ? this.constrain(n, s, h) : this.constrain(n, h, s) : n
         },
-        x = function (t, e, i) {
+        w = function (t, e, i) {
             return Math.max(Math.min(t, i), e)
         },
-        v = function () {
+        x = function () {
             _.fillStyle = t.colorGRFC, _.strokeStyle = t.colorGRFC, _.lineWidth = .5, _.stroke(), _.fill()
         };
-    class P {
+    class v {
         constructor(t, e, i, s, h, o, n) {
             [this.x, this.y, this.w, this.h, this.i, this.j, this.idx] = [t, e, i, s, h, o, n], this.active = !0, this.appear = !1, this.neighbours = {
                 west: !1,
@@ -92,30 +91,30 @@
         }
         show() {
             var e, i, s, h, a, r, c, $, u, g, d, f;
-            this.active && (e = (this.x - n) * o, i = this.y * o + l, s = this.w * o, h = this.h * o, a = t.cornerRadius / t.scaleDownGraphics * o, r = this.neighbours, _.beginPath(), r.west || r.north || r.northWest && !r.north && !r.west ? W(e, i, s, h, 0, 0) : W(e, i, s, h, a, 0), r.east || r.north || r.northEast && !r.north && !r.east ? W(e, i, s, h, 0, 1) : W(e, i, s, h, a, 1), r.east || r.south || r.southEast && !r.south && !r.east ? W(e, i, s, h, 0, 2) : W(e, i, s, h, a, 2), r.west || r.south || r.southWest && !r.south && !r.west ? W(e, i, s, h, 0, 3) : W(e, i, s, h, a, 3), r.west || r.north || r.northWest && !r.north && !r.west ? _.lineTo(e, i) : _.lineTo(e, i + a), _.closePath(), v(), c = (this.x - n) * o, $ = this.y * o + l, u = this.w * o, g = this.h * o, d = t.connectionRadius / t.scaleDownGraphics * o, (f = this.neighbours).northWest && !f.north && (_.beginPath(), G(c, $ - d, c + d, $ - d, c + d, $), _.lineTo(c, $), _.closePath(), v()), f.northWest && !f.west && (_.beginPath(), G(c - d, $, c - d, $ + d, c, $ + d), _.lineTo(c, $), _.closePath(), v()), f.northEast && !f.north && (_.beginPath(), G(c + u, $ - d, c + u - d, $ - d, c + u - d, $), _.lineTo(c + u, $), _.closePath(), v()), f.northEast && !f.east && (_.beginPath(), G(c + u + d, $, c + u + d, $ + d, c + u, $ + d), _.lineTo(c + u, $), _.closePath(), v()))
+            this.active && (e = (this.x - n) * o, i = this.y * o + l, s = this.w * o, h = this.h * o, a = t.cornerRadius / t.scaleDownGraphics * o, r = this.neighbours, _.beginPath(), r.west || r.north || r.northWest && !r.north && !r.west ? P(e, i, s, h, 0, 0) : P(e, i, s, h, a, 0), r.east || r.north || r.northEast && !r.north && !r.east ? P(e, i, s, h, 0, 1) : P(e, i, s, h, a, 1), r.east || r.south || r.southEast && !r.south && !r.east ? P(e, i, s, h, 0, 2) : P(e, i, s, h, a, 2), r.west || r.south || r.southWest && !r.south && !r.west ? P(e, i, s, h, 0, 3) : P(e, i, s, h, a, 3), r.west || r.north || r.northWest && !r.north && !r.west ? _.lineTo(e, i) : _.lineTo(e, i + a), _.closePath(), x(), c = (this.x - n) * o, $ = this.y * o + l, u = this.w * o, g = this.h * o, d = t.connectionRadius / t.scaleDownGraphics * o, (f = this.neighbours).northWest && !f.north && (_.beginPath(), W(c, $ - d, c + d, $ - d, c + d, $), _.lineTo(c, $), _.closePath(), x()), f.northWest && !f.west && (_.beginPath(), W(c - d, $, c - d, $ + d, c, $ + d), _.lineTo(c, $), _.closePath(), x()), f.northEast && !f.north && (_.beginPath(), W(c + u, $ - d, c + u - d, $ - d, c + u - d, $), _.lineTo(c + u, $), _.closePath(), x()), f.northEast && !f.east && (_.beginPath(), W(c + u + d, $, c + u + d, $ + d, c + u, $ + d), _.lineTo(c + u, $), _.closePath(), x()))
         }
     }
 
-    function W(t, e, i, s, h, o) {
+    function P(t, e, i, s, h, o) {
         switch (o) {
             case 0:
-                G(t, e + h, t + h, e + h, t + h, e);
+                W(t, e + h, t + h, e + h, t + h, e);
                 break;
             case 1:
-                G(t + i - h, e, t + i - h, e + h, t + i, e + h);
+                W(t + i - h, e, t + i - h, e + h, t + i, e + h);
                 break;
             case 2:
-                G(t + i, e + s - h, t + i - h, e + s - h, t + i - h, e + s);
+                W(t + i, e + s - h, t + i - h, e + s - h, t + i - h, e + s);
                 break;
             case 3:
-                G(t + h, e + s, t + h, e + s - h, t, e + s - h);
+                W(t + h, e + s, t + h, e + s - h, t, e + s - h);
                 break;
             default:
                 console.log("check this line, something went wrong")
         }
     }
 
-    function G(t, e, i, s, h, o) {
+    function W(t, e, i, s, h, o) {
         let n = t - i,
             l = e - s,
             a = h - i,
@@ -132,7 +131,7 @@
             for (let o = 0; o < c; o++) {
                 let n = o * (t.cellHeight / t.scaleDownGraphics),
                     l = s + o * r,
-                    g = new P(h, n, t.cellWidth / t.scaleDownGraphics, t.cellHeight / t.scaleDownGraphics, s, o, l);
+                    g = new v(h, n, t.cellWidth / t.scaleDownGraphics, t.cellHeight / t.scaleDownGraphics, s, o, l);
                 $++, a.push(g)
             }
         }
@@ -143,5 +142,5 @@
             let _ = a[f];
             _.active && (_.findNeighbours(), _.findDistToPoint(e[0] / 2, e[1] / 2))
         }
-    })(), p()
+    })(), b()
 }();
