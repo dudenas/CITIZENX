@@ -7,7 +7,7 @@
         rndSeed: Math.floor(Math.random() * 1000),
         scaleDownGraphics: 1,
 
-        totalFrames: 45,
+        totalFrames: 30,
 
         // color
         colorBG: "rgb(26,27,31)",

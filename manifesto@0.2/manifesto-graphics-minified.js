@@ -6,7 +6,7 @@
             cellHeight: 80,
             rndSeed: Math.floor(1e3 * Math.random()),
             scaleDownGraphics: 1,
-            totalFrames: 45,
+            totalFrames: 30,
             colorBG: "rgb(26,27,31)",
             colorGRFC: "rgb(173,255,9)"
         },
