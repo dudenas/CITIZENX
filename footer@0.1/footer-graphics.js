@@ -334,11 +334,11 @@
         show() {
             if (this.active) {
                 // drawRectangle
-                drawRect((this.x - _offsetX) * _sclGraphics, this.y * _sclGraphics + _offsetY, this.w * _sclGraphics, this.h * _sclGraphics, params.cornerRadius / params.scaleDownGraphics * _sclGraphics, this.neighbours)
+                drawRect((this.x - _offsetX) * _sclGraphics, this.y * _sclGraphics + _offsetY + this.h * _sclGraphics / 3, this.w * _sclGraphics, this.h * _sclGraphics, params.cornerRadius / params.scaleDownGraphics * _sclGraphics, this.neighbours)
                 myFormStyle()
 
                 // draw connections
-                drawConnection((this.x - _offsetX) * _sclGraphics, this.y * _sclGraphics + _offsetY, this.w * _sclGraphics, this.h * _sclGraphics, params.connectionRadius / params.scaleDownGraphics * _sclGraphics, this.neighbours)
+                drawConnection((this.x - _offsetX) * _sclGraphics, this.y * _sclGraphics + _offsetY + this.h * _sclGraphics / 3, this.w * _sclGraphics, this.h * _sclGraphics, params.connectionRadius / params.scaleDownGraphics * _sclGraphics, this.neighbours)
             }
         }
     }
